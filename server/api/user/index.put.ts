@@ -11,8 +11,6 @@ export default defineEventHandler(async (event) => {
         id: id,
         handle: faker.internet.userName().toLowerCase(),
         full_name: full_name ?? "Anonymous",
-        skills: [] as Array<string>,
-        interests: [] as Array<string>,
         email: email,
       },
     })

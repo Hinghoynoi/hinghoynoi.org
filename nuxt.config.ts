@@ -2,6 +2,9 @@
 import "dotenv/config";
 
 export default defineNuxtConfig({
+  transpile: [
+    "three"
+  ],
   modules: ["@nuxtjs/i18n", "@nuxtjs/supabase", "@vesp/nuxt-fontawesome"],
   devtools: {enabled: true},
   css: [
@@ -58,7 +61,7 @@ export default defineNuxtConfig({
   fontawesome: {
     icons: {
       solid: ["house", "user", "newspaper", "comment", "handshake-angle", "book", "video", "caret-up", "flag"],
-      brands: ["twitter"],
+      brands: ["markdown", "twitter"],
     },
   },
 });

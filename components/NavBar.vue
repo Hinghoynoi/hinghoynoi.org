@@ -21,19 +21,19 @@ const avatar = `https://www.gravatar.com/avatar/${md5(
           >
             <path
               d="M2 2H34"
-              stroke="#323C39"
+              stroke="#ffffff"
               stroke-width="4"
               stroke-linecap="round"
             />
             <path
               d="M2 13.8033H34"
-              stroke="#323C39"
+              stroke="#ffffff"
               stroke-width="4"
               stroke-linecap="round"
             />
             <path
               d="M2 26H34"
-              stroke="#323C39"
+              stroke="#ffffff"
               stroke-width="4"
               stroke-linecap="round"
             />
@@ -52,7 +52,7 @@ const avatar = `https://www.gravatar.com/avatar/${md5(
         <div>
           <NuxtLink to="/profile">
             <img class="rounded-box" :src="avatar" alt="Account" v-if="user" />
-            <font-awesome v-else icon="user" />
+            <font-awesome v-else icon="user" class="invert" />
           </NuxtLink>
         </div>
       </div>
@@ -66,7 +66,7 @@ nav {
 }
 
 .navbar-container {
-  @apply z-[2] bg-base-100;
+  @apply z-[2] bg-blue-950;
 }
 
 .navbar-items {

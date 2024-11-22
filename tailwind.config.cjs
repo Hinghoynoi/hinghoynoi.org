@@ -31,19 +31,6 @@ module.exports = {
         },
       },
       {
-        "relaxed-blue": {
-          "primary": "#1534A5",
-          "secondary": "#2e7dee",
-          "accent": "#1E44CD",
-          "neutral": "#34363b",
-          "base-100": "#EDEADF",
-          "info": "#1e69a9",
-          "success": "#219d2b",
-          "warning": "#fcbd27",
-          "error": "#c01d1d",
-        },
-      },
-      {
         "living-nature": {
           "primary": "#344E41",
           "secondary": "#558055",
@@ -54,6 +41,19 @@ module.exports = {
           "success": "#397D51",
           "warning": "#fcbd27",
           "error": "#702E19",
+        },
+      },
+      {
+        "relaxed-blue": {
+          "primary": "#1534A5",
+          "secondary": "#2e7dee",
+          "accent": "#1E44CD",
+          "neutral": "#34363b",
+          "base-100": "#EDEADF",
+          "info": "#1e69a9",
+          "success": "#219d2b",
+          "warning": "#fcbd27",
+          "error": "#c01d1d",
         },
       },
     ],  },

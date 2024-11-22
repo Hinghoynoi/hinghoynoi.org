@@ -14,11 +14,8 @@
           class="drawer-overlay"
         ></label>
         <ul
-          class="menu min-h-full w-64 gap-y-4 border-r border-white/25 bg-black p-4 font-bold text-white"
+          class="menu min-h-full w-64 gap-y-4 border-r border-white/25 bg-blue-900/50 p-4 font-bold text-white backdrop-blur-xl"
         >
-          <center>
-            <img src="/logo.png" alt="Logo" width="48" height="auto" />
-          </center>
           <li>
             <NuxtLink to="/">
               <font-awesome icon="house" />
@@ -26,7 +23,7 @@
             </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/notifications">
+            <NuxtLink to="/articles">
               <font-awesome icon="newspaper" />
               {{ $t("navigation.newshouse") }}
             </NuxtLink>
