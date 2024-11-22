@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model userData {
+  id           String         @id @default(cuid()) @map("_id")
+  handle       String         @unique
+  role         UserTypes      @default(user)
+  bio          String?        @db.String
+  introduction String?        @db.String
+  location     String?        @db.String
+  email        String         @unique @db.String
+  full_name    String         @db.String
+  articles     articlesData[]
+}
+
+model articlesData {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String   @db.String
+  content     String   @db.String
+  author      String   @map("author_id")
+  publishedAt DateTime @default(now()) @db.Date
+  tags        Json[]   @default([]) @db.Json
+  userData    userData @relation(fields: [author], references: [id])
+}
+
+enum UserTypes {
+  user
+  admin
+  expert
+  moderator
+}
