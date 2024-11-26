@@ -19,22 +19,34 @@ model userData {
   location     String?        @db.String
   email        String         @unique @db.String
   full_name    String         @db.String
-  articles     articlesData[]
+  articlesData articlesData[]
+  commentsData commentsData[]
 }
 
 model articlesData {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  title       String   @db.String
-  content     String   @db.String
-  author      String   @map("author_id")
-  publishedAt DateTime @default(now()) @db.Date
-  tags        Json[]   @default([]) @db.Json
-  userData    userData @relation(fields: [author], references: [id])
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  title        String         @db.String
+  content      String         @db.String
+  coverImg     String         @db.String
+  author       userData       @relation(fields: [author_id], references: [id])
+  author_id    String         @map("author_id")
+  publishedAt  DateTime       @default(now()) @db.Date
+  tags         Json[]         @default([]) @db.Json
+  commentsData commentsData[]
+}
+
+model commentsData {
+  id         String       @id @default(auto()) @map("_id") @db.ObjectId
+  content    String       @db.String
+  article    articlesData @relation(fields: [article_id], references: [id])
+  article_id String       @map("article_id") @db.ObjectId
+  createdAt  DateTime     @default(now()) @db.Date
+  author     userData     @relation(fields: [author_id], references: [id])
+  author_id  String       @map("author_id") @db.ObjectId
 }
 
 enum UserTypes {
   user
+  mod
   admin
-  expert
-  moderator
 }
