@@ -11,6 +11,7 @@ let fileUploading = ref(false);
 let isFileUploaded = ref(false);
 let error = ref("");
 let success = ref(false);
+let articleId = ref("");
 
 const { body } = await $fetch("/api/user", {
   body: {
@@ -26,10 +27,10 @@ let article = reactive({
   title: "",
   coverImg: "",
   content: "",
-  tags: "",
 });
 
 async function fileInput(e) {
+  let genid = nanoid();
   if (isFileUploaded.value && article.coverImg?.length > 0) {
     const { error: delErr } = await supabase.storage
       .from("coverImg")
@@ -57,7 +58,7 @@ async function fileInput(e) {
 
   const { data, error: err } = await supabase.storage
     .from("coverImg")
-    .upload(`${nanoid()}`, file, {
+    .upload(`${genid}`, file, {
       cacheControl: "3600",
       upsert: false,
     });
@@ -66,19 +67,7 @@ async function fileInput(e) {
     return;
   }
 
-  const { data: urldata, error: urlerr } = await supabase.storage
-    .from("coverImg")
-    .createSignedUrl(data.path, 60, {
-      type: "cache-control",
-      action: "read",
-    });
-
-  if (urlerr) {
-    error.value = i18n.t("article.edit.coverImg.error");
-    return;
-  }
-  console.log(urldata);
-  article.coverImg = urldata.signedUrl;
+  article.coverImg = genid;
   fileUploading.value = false;
   isFileUploaded.value = true;
 }
@@ -103,14 +92,13 @@ function submit() {
       title: article.title,
       coverImg: article.coverImg,
       content: article.content,
-      tags: article.tags,
     },
   }).then((res) => {
     if (res.status === 200) {
       success.value = true;
+      articleId.value = JSON.parse(res.body).id;
     } else {
-      if (res.errMsg.length) return (error.value = i18n.t(res.errMsg));
-      error.value = res.body.toString();
+      error.value = i18n.t("article.submit.error");
     }
   });
 }
@@ -133,7 +121,7 @@ function closeErrorDialog() {
     :title="$t('modal.title.success')"
     :description="$t('article.success')"
     end="ok"
-    :handle-on-close="() => null"
+    :handle-on-close="() => navigateTo('/articles/' + articleId)"
   />
   <div class="flex flex-col gap-8 py-12 lg:px-24">
     <div class="flex flex-col gap-2">
@@ -147,10 +135,6 @@ function closeErrorDialog() {
     <div class="flex flex-col gap-2">
       <h1 class="text-2xl">{{ $t("article.content") }}</h1>
       <textarea class="input input-primary h-96" v-model="article.content" />
-    </div>
-    <div class="flex flex-col gap-2">
-      <h1 class="text-2xl">{{ $t("article.tags") }}</h1>
-      <input type="text" class="input input-primary" v-model="article.tags" />
     </div>
     <div class="flex justify-end gap-4">
       <button

@@ -6,6 +6,7 @@
       <div class="drawer-content">
         <NavBar />
         <slot />
+        <Footer />
       </div>
       <div class="drawer-side">
         <label
@@ -95,7 +96,6 @@
       </div>
     </div>
   </div>
-  <Footer />
 </template>
 
 <style scoped>

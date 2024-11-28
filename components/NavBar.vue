@@ -66,7 +66,7 @@ nav {
 }
 
 .navbar-container {
-  @apply z-[2] bg-blue-950;
+  @apply z-[2] bg-gradient-to-b from-blue-950 to-blue-900;
 }
 
 .navbar-items {

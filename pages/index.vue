@@ -1,12 +1,12 @@
 <template>
-  <div class="relative h-screen w-screen">
+  <div class="relative min-h-screen w-screen bg-blue-900">
     <img
       src="/landing.png"
       alt="landing"
       class="h-screen w-full object-cover"
     />
     <div
-      class="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black/35"
+      class="absolute left-0 top-0 flex h-screen w-full items-center justify-center bg-gradient-to-b from-transparent via-transparent to-blue-900"
     >
       <div class="flex h-1/2 flex-col gap-12 text-center">
         <h1 class="glow text-7xl font-bold text-white lg:text-9xl">
@@ -19,6 +19,15 @@
         </p>
       </div>
     </div>
+    <!--    <div class="flex flex-col items-center justify-center p-12">-->
+    <!--      <h1 class="text-4xl">มีอะไรใหม่</h1>-->
+    <!--      <h1 class="text-4xl">มีอะไรใหม่</h1>-->
+    <!--      <h1 class="text-4xl">มีอะไรใหม่</h1>-->
+    <!--      <h1 class="text-4xl">มีอะไรใหม่</h1>-->
+    <!--      <h1 class="text-4xl">มีอะไรใหม่</h1>-->
+    <!--      <h1 class="text-4xl">มีอะไรใหม่</h1>-->
+    <!--      <h1 class="text-4xl">มีอะไรใหม่</h1>-->
+    <!--    </div>-->
   </div>
 </template>
 
@@ -47,3 +56,4 @@
   }
 }
 </style>
+<script setup lang="ts"></script>

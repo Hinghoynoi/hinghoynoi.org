@@ -38,15 +38,6 @@ const newData = reactive({
 function submit(e: Event) {
   e.preventDefault();
 
-  if (newData.handle.length > 32)
-    error.value = i18n.t("user.update.handle.maxLength");
-  if (newData.full_name.length > 64)
-    error.value = i18n.t("user.update.fullName.maxLength");
-  if (newData.bio.length > 256)
-    error.value = i18n.t("user.update.bio.maxLength");
-  if (newData.introduction.length > 2048)
-    error.value = i18n.t("user.update.introduction.maxLength");
-
   if (!newData.handle) error.value = i18n.t("user.update.handle.required");
   if (!newData.full_name) error.value = i18n.t("user.update.fullName.required");
 
@@ -55,6 +46,15 @@ function submit(e: Event) {
 
   if (newData.handle.length < 3)
     error.value = i18n.t("user.update.handle.minLength");
+
+  if (newData.handle.length > 32)
+    error.value = i18n.t("user.update.handle.maxLength");
+  if (newData.full_name.length > 64)
+    error.value = i18n.t("user.update.fullName.maxLength");
+  if (newData.bio?.length > 256)
+    error.value = i18n.t("user.update.bio.maxLength");
+  if (newData.introduction?.length > 2048)
+    error.value = i18n.t("user.update.introduction.maxLength");
 
   $fetch("/api/user", {
     body: {
