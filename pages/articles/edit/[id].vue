@@ -7,14 +7,30 @@ import imageCompression from "browser-image-compression";
 import { nanoid } from "nanoid";
 import { render } from "~/lib/render";
 
+const id = useRoute().params.id;
 const supabase = useSupabaseClient();
 const user = useSupabaseUser();
 const i18n = useI18n();
 let error = ref("");
 let success = ref(false);
-let articleId = ref("");
 let file = ref(null);
 let isSubmitting = ref(false);
+
+const { body: articleBody } = await $fetch("/api/article", {
+  body: {
+    id,
+  },
+  method: "POST",
+});
+
+const articleData = JSON.parse(articleBody);
+
+if (articleData.author_id !== user.value?.id && user.value?.role !== "admin") {
+  throw createError({
+    statusCode: 403,
+    message: i18n.t("user.permission"),
+  });
+}
 
 const { body } = await $fetch("/api/user", {
   body: {
@@ -34,10 +50,10 @@ if (userData.role !== "admin") {
 }
 
 let article = reactive({
-  title: "",
-  coverImg: "",
-  content: "",
-  tags: "",
+  title: articleData.title,
+  coverImg: articleData.coverImg,
+  content: articleData.content,
+  tags: articleData.tags.join(" "),
 });
 
 function fileInput(e) {
@@ -99,18 +115,19 @@ async function submit() {
     return;
   }
 
-  let errUpload = await uploadFile();
-  if (errUpload) {
-    error.value = errUpload;
+  if (file.value) {
+    let errUpload = await uploadFile();
+    if (errUpload) {
+      error.value = errUpload;
+      return;
+    }
     return;
   }
 
-  $fetch("/api/article", {
-    method: "PUT",
+  $fetch("/api/article/edit", {
+    method: "POST",
     body: {
-      id: userData.id,
-      handle: userData.handle,
-      email: userData.email,
+      id: id,
       title: article.title,
       coverImg: article.coverImg,
       content: article.content,
@@ -119,7 +136,26 @@ async function submit() {
   }).then((res) => {
     if (res.status === 200) {
       success.value = true;
-      articleId.value = JSON.parse(res.body).id;
+    } else {
+      error.value = i18n.t("article.submit.error");
+    }
+  });
+}
+
+function deleteArticle() {
+  if (isSubmitting.value) {
+    error.value = i18n.t("article.submit.submitting");
+    return;
+  }
+  isSubmitting.value = true;
+  $fetch("/api/article/delete", {
+    method: "POST",
+    body: {
+      id: id,
+    },
+  }).then((res) => {
+    if (res.status === 200) {
+      success.value = true;
     } else {
       error.value = i18n.t("article.submit.error");
     }
@@ -146,7 +182,7 @@ function closeErrorDialog() {
       :title="$t('modal.title.success')"
       :description="$t('article.success')"
       end="ok"
-      :handle-on-close="() => navigateTo('/articles/' + articleId)"
+      :handle-on-close="() => navigateTo('/articles/' + id)"
     />
     <div class="flex flex-col gap-8 px-2 py-12 lg:px-24">
       <div class="flex flex-col gap-2">
@@ -191,6 +227,9 @@ function closeErrorDialog() {
         </button>
         <button class="btn btn-secondary" @click="navigateTo('/articles')">
           {{ $t("article.cancel") }}
+        </button>
+        <button class="btn btn-warning" @click="deleteArticle">
+          {{ $t("article.delete") }}
         </button>
       </div>
     </div>

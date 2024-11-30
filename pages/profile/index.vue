@@ -1,9 +1,10 @@
 <script setup>
+import { getGravatarUrl } from "~/lib/avatar.js";
+
 definePageMeta({
   middleware: ["auth"],
 });
 
-import { md5 } from "~/lib/md5.js";
 const user = useSupabaseUser();
 const supabase = useSupabaseClient();
 let userData;
@@ -37,9 +38,7 @@ if (!data || data === "User not found") {
   userData = reactive(JSON.parse(data));
 }
 
-userData.avatarURL = `https://www.gravatar.com/avatar/${md5(
-  userData.email,
-)}?d=retro&size=128`;
+userData.avatarURL = getGravatarUrl(userData.email);
 
 function logout() {
   supabase.auth.signOut();

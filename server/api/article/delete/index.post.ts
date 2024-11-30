@@ -4,13 +4,11 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const { id } = body;
 
-  const data = await prisma.articlesData.findFirst({
+  const data = await prisma.articlesData.delete({
     where: {
       id: Number(id),
     },
   });
-
-  if (!data) return { status: 500, body: "Article not found" };
 
   return { status: 200, body: JSON.stringify(data) };
 });

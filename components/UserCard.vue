@@ -39,7 +39,7 @@ import { render } from "~/lib/render";
     <!--      <h1>{{ $t("user.profile.introduction.title") }}</h1>-->
     <!--    </div>-->
     <div
-      class="introduction markdown bg-base-100"
+      class="introduction markdown markdown-body bg-base-100"
       v-html="render(data.introduction || '')"
     ></div>
   </div>
@@ -48,30 +48,6 @@ import { render } from "~/lib/render";
 <style scoped>
 h1 {
   @apply text-2xl font-bold;
-}
-
-.markdown h1 {
-  @apply text-2xl font-bold;
-}
-
-.markdown h2 {
-  @apply text-xl font-bold;
-}
-
-.markdown h3 {
-  @apply text-lg font-bold;
-}
-
-.markdown li {
-  @apply list-disc;
-}
-
-.markdown p {
-  @apply text-justify text-lg;
-}
-
-.markdown blockquote {
-  @apply border-l-4 p-4;
 }
 
 .page-container {

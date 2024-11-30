@@ -1,5 +1,4 @@
 <template>
-  <LazyNuxtLoadingIndicator color="#f28c18" class="p-1" />
   <div class="page-layouts">
     <div class="drawer">
       <input id="my-drawer" type="checkbox" class="drawer-toggle" />

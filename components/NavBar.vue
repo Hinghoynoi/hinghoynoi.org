@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { md5 } from "~/lib/md5";
+import { getGravatarUrl } from "~/lib/avatar";
 const user = useSupabaseUser();
 
-const avatar = `https://www.gravatar.com/avatar/${md5(
-  user.value?.email ?? "",
-)}?d=mp&s=48`;
+const avatar = getGravatarUrl(user?.value?.email);
 </script>
 
 <template>
@@ -51,7 +49,12 @@ const avatar = `https://www.gravatar.com/avatar/${md5(
       <div class="navbar-end flex">
         <div>
           <NuxtLink to="/profile">
-            <img class="rounded-box" :src="avatar" alt="Account" v-if="user" />
+            <img
+              class="w-16 rounded-box"
+              :src="avatar"
+              alt="Account"
+              v-if="user"
+            />
             <font-awesome v-else icon="user" class="invert" />
           </NuxtLink>
         </div>

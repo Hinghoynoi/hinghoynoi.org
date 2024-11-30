@@ -2,22 +2,18 @@ import { prisma } from "~/database/prisma";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  const { id, content, title, coverImg, tags, handle, email } = body;
+  const { id, content, title, coverImg, tags } = body;
 
   const data = await prisma.articlesData
-    .create({
+    .update({
+      where: {
+        id: Number(id),
+      },
       data: {
         coverImg: coverImg,
         title: title,
         content: content,
         tags: tags,
-        author: {
-          connect: {
-            id: id,
-            handle: handle,
-            email: email,
-          },
-        },
       },
     })
     .catch((err: any) => {

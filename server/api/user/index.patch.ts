@@ -2,14 +2,7 @@ import { prisma } from "~/database/prisma";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  const {
-    id,
-    handle,
-    full_name,
-    bio,
-    introduction,
-    location,
-  } = body;
+  const { id, handle, full_name, bio, introduction, location } = body;
 
   const handleData = await prisma.userData.findUnique({
     where: {

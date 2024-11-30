@@ -6,7 +6,7 @@
       class="h-screen w-full object-cover"
     />
     <div
-      class="absolute left-0 top-0 flex h-screen w-full items-center justify-center bg-gradient-to-b from-transparent via-transparent to-blue-900"
+      class="absolute left-0 top-0 flex h-screen w-full items-center justify-center bg-gradient-to-b from-transparent via-black/40 to-blue-900"
     >
       <div class="flex h-1/2 flex-col gap-12 text-center">
         <h1 class="glow text-7xl font-bold text-white lg:text-9xl">
