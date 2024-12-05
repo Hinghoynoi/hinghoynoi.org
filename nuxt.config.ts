@@ -6,13 +6,14 @@ export default defineNuxtConfig({
     "three"
   ],
 
-  modules: ["@nuxtjs/i18n", "@nuxtjs/supabase", "@vesp/nuxt-fontawesome"],
+  modules: ["@nuxtjs/i18n", "@nuxtjs/supabase", "@nuxt/image", "@vesp/nuxt-fontawesome", "@nuxt/image"],
   devtools: {enabled: true},
 
   css: [
     "@/assets/css/fonts.css",
     "@/assets/css/tailwind.css",
     "@/assets/css/global.css",
+    "@/assets/css/markdown.css",
   ],
 
   postcss: {
@@ -35,10 +36,6 @@ export default defineNuxtConfig({
           rel: "icon",
           type: "image/x-icon",
           href: "/favicon.ico",
-        },
-        {
-          rel: "stylesheet",
-          href: "https://static.fontawesome.com/css/fontawesome-app.css"
         }
       ]
     },

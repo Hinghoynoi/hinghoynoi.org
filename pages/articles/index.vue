@@ -9,7 +9,7 @@ let articles = JSON.parse(body);
 
 <template>
   <div class="relative min-h-screen w-screen bg-blue-900">
-    <img
+    <NuxtImg
       src="/treehouse.png"
       alt="treehouse"
       class="h-screen w-full object-cover"
@@ -44,17 +44,17 @@ let articles = JSON.parse(body);
         v-if="articles"
       >
         <div
-          class="card card-side max-w-lg rounded-lg bg-base-100 shadow-xl"
+          class="card max-w-lg rounded-lg bg-base-100 shadow-xl xl:card-side"
           v-for="article in articles"
         >
-          <figure>
+          <figure class="h-1/2 xl:h-full xl:w-1/2">
             <img
-              class="h-full w-full"
+              class="h-full w-full rounded-t-lg object-cover"
               :src="'/api/article/image?id=' + article.coverImg"
               alt=""
             />
           </figure>
-          <div class="card-body">
+          <div class="card-body h-1/2 xl:h-full xl:w-1/2">
             <h2 class="card-title">{{ article.title }}</h2>
             <p>{{ article.content.substr(0, 100) + "..." }}</p>
             <div class="card-actions justify-end">
